@@ -36,7 +36,6 @@ class C(BaseConstants):
     NAME_IN_URL = 'experiment'
     PLAYERS_PER_GROUP = None
     NUM_ROUNDS = 1
-    # INSTRUCTIONS_TEMPLATE = 'experiment/Assembly.html'
 
 
 class Subsession(BaseSubsession):
@@ -79,7 +78,7 @@ def match_maker(group: Group):
         for client in connected_clients_info:
             if client is not None and player.participant.label == client['participant_label']:
                 player.participant.ch_settings = client['thingspeak_ch_settings']
-                client = None  # "Delete"
+                client = None
                 break
 
 
@@ -129,7 +128,7 @@ class MainRound(Page):
 
 
 class MainRoundSpecial(Page):
-    timeout_seconds = 15
+    timeout_seconds = 600
 
     @staticmethod
     def is_displayed(player):
@@ -155,9 +154,6 @@ class MainRoundSpecial(Page):
 
         produced_parts = tmp['feeds'][0]['field1']
         print(produced_parts)
-
-
-        # produced_parts = thingspeak.read_data(read_api_key=read_api_key, channel_id=channel_id, field=)
 
         if produced_parts != -1:
             produced_parts = float(produced_parts)
